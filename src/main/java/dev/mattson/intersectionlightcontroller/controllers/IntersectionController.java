@@ -28,13 +28,8 @@ public class IntersectionController {
         return this.intersectionService.getAllIntersections();
     }
 
-    @GetMapping("/{id}")
-    public Optional<Intersection> getIntersectionById(@PathVariable int id) {
-        return this.intersectionService.getIntersectionById(id);
-    }
-
     @GetMapping("/config/{id}")
-    public IntersectionConfigDTO getIntersectionConfigDTOById(@PathVariable int id) {
+    public Optional<IntersectionConfigDTO> getIntersectionConfigDTOById(@PathVariable int id) {
         return this.intersectionService.getIntersectionConfigDTOById(id);
     }
 
@@ -55,14 +50,10 @@ public class IntersectionController {
         this.intersectionService.toggleIntersectionPowerById(id);
     }
 
-//    @PatchMapping("{id}")
-//    public void setNewIntersectionConfigById(@PathVariable int id, int NSRed, int NSYellow, int NSGreen, int EWRed, int EWYellow, int EWGreen) {
-//
-//    }
-
-    @PatchMapping("{id}")
+    @PatchMapping("/{id}")
     public void setIntersectionConfigById(@PathVariable int id, @RequestBody int[] sixDigits) {
         this.intersectionService.setIntersectionConfigById(id, sixDigits);
     }
+
 
 }

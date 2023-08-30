@@ -1,6 +1,7 @@
 package dev.mattson.intersectionlightcontroller.services;
 
 import dev.mattson.intersectionlightcontroller.dtos.IntersectionConfigDTO;
+import dev.mattson.intersectionlightcontroller.dtos.IntersectionConfigDTOMapper;
 import dev.mattson.intersectionlightcontroller.entities.Intersection;
 import dev.mattson.intersectionlightcontroller.repositories.IntersectionRepository;
 import org.springframework.stereotype.Service;
@@ -12,9 +13,11 @@ import java.util.Optional;
 public class IntersectionServiceImpl implements IntersectionService {
 
     private final IntersectionRepository intersectionRepository;
+    private final IntersectionConfigDTOMapper intersectionConfigDTOMapper;
 
-    public IntersectionServiceImpl(IntersectionRepository intersectionRepository) {
+    public IntersectionServiceImpl(IntersectionRepository intersectionRepository, IntersectionConfigDTOMapper intersectionConfigDTOMapper) {
         this.intersectionRepository = intersectionRepository;
+        this.intersectionConfigDTOMapper = intersectionConfigDTOMapper;
     }
 
     @Override
@@ -33,11 +36,6 @@ public class IntersectionServiceImpl implements IntersectionService {
     @Override
     public List<Intersection> getAllIntersections() {
         return this.intersectionRepository.findAll();
-    }
-
-    @Override
-    public Optional<Intersection> getIntersectionById(int id) {
-        return Optional.empty();
     }
 
     @Override
@@ -70,23 +68,19 @@ public class IntersectionServiceImpl implements IntersectionService {
     }
 
     @Override
-    public IntersectionConfigDTO getIntersectionConfigDTOById(int id) {
-        Optional<Intersection> intersectionConfig = this.intersectionRepository.findById(id);
-        intersectionConfig.ifPresent(existingIntersection -> new IntersectionConfigDTO(
-                existingIntersection.getIntersectionId(),
-                existingIntersection.getNSLightRed(),
-                existingIntersection.getNSLightYellow(),
-                existingIntersection.getNSLightGreen(),
-                existingIntersection.getEWLightRed(),
-                existingIntersection.getEWLightYellow(),
-                existingIntersection.getEWLightGreen()
-        ));
-        return null;
+    public Optional<IntersectionConfigDTO> getIntersectionConfigDTOById(int id) {
+        return this.intersectionRepository.findById(id).map(intersectionConfigDTOMapper);
     }
 
     @Override
     public void setIntersectionConfigById(int id, int[] sixDigits) {
-        // validate int array is 6 and throw exception if not
+        if (sixDigits.length != 6) {
+            throw new RuntimeException("the array must contain 6 numbers");
+        } else if (sixDigits[0] < (sixDigits[4] + sixDigits[5]) || sixDigits[3] < sixDigits[1] + sixDigits[2]) {
+            throw new RuntimeException("Red light timers must be greater than the sum of Yellow and Green timers of the opposite light");
+        } else if ((sixDigits[0]+sixDigits[1]+sixDigits[2]) != (sixDigits[3]+sixDigits[4]+sixDigits[5])) {
+            throw new RuntimeException("Make sure the sum of North/South lights equals the sum of East/West lights");
+        }
         Optional<Intersection> intersection = this.intersectionRepository.findById(id);
         if (intersection.isPresent()) {
             Intersection intersectionToConfigure = intersection.get();
@@ -96,6 +90,9 @@ public class IntersectionServiceImpl implements IntersectionService {
             intersectionToConfigure.setEWLightRed(sixDigits[3]);
             intersectionToConfigure.setEWLightYellow(sixDigits[4]);
             intersectionToConfigure.setEWLightGreen(sixDigits[5]);
+            this.intersectionRepository.save(intersectionToConfigure);
+        } else {
+            throw new RuntimeException("Intersection not found");
         }
     }
 }
