@@ -10,7 +10,7 @@
 1. A model of the Light Controller System.
 2. A Java Spring Boot application that can fulfill the use cases.
 
-Here is the Java Spring Boot deliverable that was requested during Tuesday's interview after having completed the model during the interview process. I have also added a Postman collection for your convenience. I will add a sample POST JSON at the bottom of this readme.
+Here is the Java Spring Boot deliverable that was requested during Tuesday's interview after conferring on the model during the interview. I have also added a Postman collection for your convenience. I will add a sample POST JSON at the bottom of this readme.
 
 Inside the Spring Boot application I fulfilled the use cases while adding logic to ensure intersections could not have two green lights at the same time nor could a light be green while the other light is yellow.
 
