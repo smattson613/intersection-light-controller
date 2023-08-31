@@ -3,6 +3,7 @@ package dev.mattson.intersectionlightcontroller.services;
 import dev.mattson.intersectionlightcontroller.dtos.IntersectionConfigDTO;
 import dev.mattson.intersectionlightcontroller.dtos.IntersectionConfigDTOMapper;
 import dev.mattson.intersectionlightcontroller.entities.Intersection;
+import dev.mattson.intersectionlightcontroller.entities.LightState;
 import dev.mattson.intersectionlightcontroller.repositories.IntersectionRepository;
 import org.springframework.stereotype.Service;
 
@@ -21,16 +22,24 @@ public class IntersectionServiceImpl implements IntersectionService {
     }
 
     @Override
-    public void createIntersection(Intersection intersection) {
-        if (intersection.getEWLightRed() < (intersection.getNSLightYellow()+intersection.getNSLightGreen()) ||
-                intersection.getNSLightRed() < (intersection.getEWLightYellow())+intersection.getEWLightGreen() ) {
-            throw new RuntimeException("Red light timers must be greater than the sum of Yellow and Green timers of the opposite light");
-        } else if ((intersection.getEWLightGreen()+intersection.getEWLightYellow()+intersection.getEWLightRed()) !=
-                (intersection.getNSLightGreen()+intersection.getNSLightYellow()+intersection.getNSLightRed())) {
-            throw new RuntimeException("Make sure the sum of North/South lights equals the sum of East/West lights");
-        } else {
-            this.intersectionRepository.save(intersection);
-        }
+    public Intersection createIntersection(Intersection intersection) {
+//        try {
+            if (intersection.getEWLightRed() < (intersection.getNSLightYellow() + intersection.getNSLightGreen()) ||
+                    intersection.getNSLightRed() < (intersection.getEWLightYellow()) + intersection.getEWLightGreen()) {
+                throw new RuntimeException("Red light timers must be greater than the sum of Yellow and Green timers of the opposite light");
+            } else if ((intersection.getEWLightGreen() + intersection.getEWLightYellow() + intersection.getEWLightRed()) !=
+                    (intersection.getNSLightGreen() + intersection.getNSLightYellow() + intersection.getNSLightRed())) {
+                throw new RuntimeException("Make sure the sum of North/South lights equals the sum of East/West lights");
+            } else if ((intersection.getNSLight() == LightState.YELLOW || intersection.getEWLight() == LightState.YELLOW)
+                    || (intersection.getNSLight() == LightState.RED & intersection.getEWLight() == LightState.RED)
+                    || (intersection.getNSLight() == LightState.GREEN & intersection.getEWLight() == LightState.GREEN)) {
+                throw new RuntimeException("Lights must start with one green and one red light");
+            } else {
+                return this.intersectionRepository.save(intersection);
+            }
+//        } catch () {
+//
+//        }
     }
 
     @Override
@@ -90,6 +99,8 @@ public class IntersectionServiceImpl implements IntersectionService {
             intersectionToConfigure.setEWLightRed(sixDigits[3]);
             intersectionToConfigure.setEWLightYellow(sixDigits[4]);
             intersectionToConfigure.setEWLightGreen(sixDigits[5]);
+            intersectionToConfigure.setNSLight(LightState.RED);
+            intersectionToConfigure.setEWLight(LightState.GREEN);
             this.intersectionRepository.save(intersectionToConfigure);
         } else {
             throw new RuntimeException("Intersection not found");

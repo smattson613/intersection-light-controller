@@ -19,8 +19,8 @@ public class IntersectionController {
     }
 
     @PostMapping
-    public void createIntersection(@RequestBody Intersection intersection) {
-        this.intersectionService.createIntersection(intersection);
+    public Intersection createIntersection(@RequestBody Intersection intersection) {
+        return this.intersectionService.createIntersection(intersection);
     }
 
     @GetMapping

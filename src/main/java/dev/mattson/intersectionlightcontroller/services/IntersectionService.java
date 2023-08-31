@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IntersectionService {
-    void createIntersection(Intersection intersection);
+    Intersection createIntersection(Intersection intersection);
 
     List<Intersection> getAllIntersections();
 

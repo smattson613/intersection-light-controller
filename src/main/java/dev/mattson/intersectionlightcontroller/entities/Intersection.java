@@ -1,10 +1,12 @@
 package dev.mattson.intersectionlightcontroller.entities;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 
 import java.util.Objects;
 
 @Entity
+@Builder
 @Table(name = "intersection")
 public class Intersection {
 
