@@ -2,6 +2,7 @@ package dev.mattson.intersectionlightcontroller.controllers;
 
 import dev.mattson.intersectionlightcontroller.dtos.IntersectionConfigDTO;
 import dev.mattson.intersectionlightcontroller.entities.Intersection;
+import dev.mattson.intersectionlightcontroller.exceptions.InvalidIntersectionConfigException;
 import dev.mattson.intersectionlightcontroller.services.IntersectionService;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +20,7 @@ public class IntersectionController {
     }
 
     @PostMapping
-    public Intersection createIntersection(@RequestBody Intersection intersection) {
+    public Intersection createIntersection(@RequestBody Intersection intersection) throws InvalidIntersectionConfigException {
         return this.intersectionService.createIntersection(intersection);
     }
 

@@ -2,12 +2,13 @@ package dev.mattson.intersectionlightcontroller.services;
 
 import dev.mattson.intersectionlightcontroller.dtos.IntersectionConfigDTO;
 import dev.mattson.intersectionlightcontroller.entities.Intersection;
+import dev.mattson.intersectionlightcontroller.exceptions.InvalidIntersectionConfigException;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface IntersectionService {
-    Intersection createIntersection(Intersection intersection);
+    Intersection createIntersection(Intersection intersection) throws InvalidIntersectionConfigException;
 
     List<Intersection> getAllIntersections();
 
