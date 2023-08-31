@@ -1,0 +1,183 @@
+{
+	"info": {
+		"_postman_id": "a4ec8c54-38a7-4879-afd0-d6a4bc89608e",
+		"name": "Intersection Light Controller",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22412975",
+		"_collection_link": "https://gold-eclipse-183154.postman.co/workspace/Test~30c1fd65-523c-49b9-84a6-a69f4f53ad19/collection/22412975-a4ec8c54-38a7-4879-afd0-d6a4bc89608e?action=share&source=collection_link&creator=22412975"
+	},
+	"item": [
+		{
+			"name": "Get All Intersections",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/intersection",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"intersection"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Intersection",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"intersectionId\":0,\r\n    \"nslight\":\"GREEN\",\r\n    \"ewlight\":\"RED\",\r\n    \"power\":false,\r\n    \"nslightRed\":45,\r\n    \"nslightYellow\":5,\r\n    \"nslightGreen\":15,\r\n    \"ewlightRed\":45,\r\n    \"ewlightYellow\":5,\r\n    \"ewlightGreen\":15\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/intersection",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"intersection"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Start Intersection By ID",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/intersection/start/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"intersection",
+						"start",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Stop Intersection By ID",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/intersection/stop/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"intersection",
+						"stop",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Toggle Intersection By ID",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/intersection/toggle/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"intersection",
+						"toggle",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Change Intersection Config By ID",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[50, 10, 10, 50, 10, 10]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/intersection/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"intersection",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Intersection Config DTO By ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/intersection/config/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"intersection",
+						"config",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
