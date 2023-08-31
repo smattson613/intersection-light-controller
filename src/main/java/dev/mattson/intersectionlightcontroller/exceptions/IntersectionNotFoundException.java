@@ -3,10 +3,10 @@ package dev.mattson.intersectionlightcontroller.exceptions;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(value = HttpStatus.BAD_REQUEST)
-public class InvalidIntersectionConfigException extends RuntimeException{
+@ResponseStatus(value = HttpStatus.NOT_FOUND)
+public class IntersectionNotFoundException extends RuntimeException{
 
-    public InvalidIntersectionConfigException(String message) {
+    public IntersectionNotFoundException(String message) {
         super(message);
     }
 }

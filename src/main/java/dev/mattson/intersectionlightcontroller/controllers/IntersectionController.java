@@ -20,7 +20,7 @@ public class IntersectionController {
     }
 
     @PostMapping
-    public Intersection createIntersection(@RequestBody Intersection intersection) throws InvalidIntersectionConfigException {
+    public Intersection createIntersection(@RequestBody Intersection intersection) {
         return this.intersectionService.createIntersection(intersection);
     }
 

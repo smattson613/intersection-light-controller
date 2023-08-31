@@ -2,7 +2,6 @@ package dev.mattson.intersectionlightcontroller;
 
 import dev.mattson.intersectionlightcontroller.entities.Intersection;
 import dev.mattson.intersectionlightcontroller.entities.LightState;
-import dev.mattson.intersectionlightcontroller.exceptions.InvalidIntersectionConfigException;
 import dev.mattson.intersectionlightcontroller.repositories.IntersectionRepository;
 import dev.mattson.intersectionlightcontroller.services.IntersectionServiceImpl;
 import org.assertj.core.api.Assertions;
@@ -26,7 +25,7 @@ public class IntersectionServiceTests {
     private IntersectionServiceImpl intersectionService;
 
     @Test
-    void createIntersection_ValidFields_Saved() throws InvalidIntersectionConfigException {
+    void createIntersection_ValidFields_Saved() {
         //given
         Intersection intersection = Intersection.builder()
                 .intersectionId(1)
