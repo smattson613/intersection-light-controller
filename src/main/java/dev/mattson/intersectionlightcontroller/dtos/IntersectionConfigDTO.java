@@ -1,5 +1,8 @@
 package dev.mattson.intersectionlightcontroller.dtos;
 
+import lombok.Builder;
+
+@Builder
 public record IntersectionConfigDTO(
         int id,
         int NSLightRed,
