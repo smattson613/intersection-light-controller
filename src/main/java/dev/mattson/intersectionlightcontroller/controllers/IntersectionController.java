@@ -2,7 +2,6 @@ package dev.mattson.intersectionlightcontroller.controllers;
 
 import dev.mattson.intersectionlightcontroller.dtos.IntersectionConfigDTO;
 import dev.mattson.intersectionlightcontroller.entities.Intersection;
-import dev.mattson.intersectionlightcontroller.exceptions.InvalidIntersectionConfigException;
 import dev.mattson.intersectionlightcontroller.services.IntersectionService;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,7 +33,7 @@ public class IntersectionController {
         return this.intersectionService.getIntersectionConfigDTOById(id);
     }
 
-    // Below are two separate routes for turning intersection lights on and off.
+    // Below are two separate routes for turning Intersection power true and false.
     @PatchMapping("/start/{id}")
     public void startIntersectionById(@PathVariable int id) {
         this.intersectionService.startIntersectionById(id);
@@ -45,7 +44,7 @@ public class IntersectionController {
         this.intersectionService.stopIntersectionById(id);
     }
 
-    // Below is a singular route for toggling intersections on and off.
+    // Below is a singular route for toggling Intersection power true and false.
     @PatchMapping("/toggle/{id}")
     public void toggleIntersectionPowerById(@PathVariable int id) {
         this.intersectionService.toggleIntersectionPowerById(id);
@@ -55,6 +54,4 @@ public class IntersectionController {
     public void setIntersectionConfigById(@PathVariable int id, @RequestBody int[] sixDigits) {
         this.intersectionService.setIntersectionConfigById(id, sixDigits);
     }
-
-
 }

@@ -182,5 +182,4 @@ public class IntersectionServiceTests {
         Assertions.assertThat(intersection).isNotNull();
         Assertions.assertThat(intersection.getNSLightRed()).isEqualTo(45);
     }
-
 }

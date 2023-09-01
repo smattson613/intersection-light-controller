@@ -32,6 +32,4 @@ public class IntersectionExceptionHandler {
 
         return new ResponseEntity<>(intersectionException, HttpStatus.NOT_FOUND);
     }
-
-
 }
